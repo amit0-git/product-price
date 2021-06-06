@@ -24,7 +24,7 @@ def getdata():
     return result
 
 
-@app.route("/home")
+
 @app.route("/")
 def main():
     if 'loggedin' in session: 
