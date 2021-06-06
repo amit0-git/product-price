@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verma Machinery Store</title>
+    
+    <link rel="icon" href="{{url_for('static',filename='icons/hand_tool_tools_work_building_repair_construction_construction_tools-91_icon-icons.com_60418.ico')}}" type="image/x-icon">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+</head>
+
+<body>
+   
+   
+    <nav class="navbar navbar-expand-md bg-primary navbar-dark">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" href="#">
+            <img src="{{url_for('static',filename='icons/settings.png')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+        </a>
+        <a class="navbar-brand" href="#">VERMA MACHINERY STORE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ url_for('add')}}">Add Records</a>
+                </li>
+                {% if msg1 %}
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{url_for('logout')}}">Sign Out</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Welcome {{msg1}}</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+   
+    <br><br>
+    
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-warning alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                {{message}}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        </div>
+        <br>
+    <div class="container">
+    <form action="">
+        <label for="fname"><i class="fas fa-search"></i>Search:</label>
+        <input type="text"  onkeyup="showHint(this.value);">
+    </form>
+</div>
+    <div class="container" id="heading">
+        
+        <table class="table table-striped" id="txtHint">
+            </table>
+    </div>
+    <div class="container">
+        <h2>Recent Records</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><i class="fas fa-shopping-cart"></i>Product</th>
+                    <th><i class="fas fa-rupee-sign"></i>Price</th>
+                    <th><i class="fas fa-plus-circle"></i>Qty.</th>
+                    <th><i class="far fa-clock"></i>Last Updated</th>
+                    <th><i class="fas fa-wrench"></i>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for i in data%}
+                <tr>
+                    <td>{{ i['product'] }}</td>
+                    <td>₹ {{ i['price'] }}</td>
+                    <td>{{ i['qty'] }}</td>
+                    <td>{{ i['date_updated'] }}</td>
+                    <td><a href="{{ url_for('delete',id=i['id'])}}">Delete</a>/<a
+                            href="{{ url_for('update',id=i['id'])}}">Update</a></td>
+
+
+                </tr>
+
+                {%endfor%}
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
+
+
+
+<script src="{{ url_for('static',filename='main.js')}}"></script>
+</body>
+
+</html>
